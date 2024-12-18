@@ -4,11 +4,9 @@ import {Entity} from "../../../webgl_engine/utils/entity.js";
 import {Orrery2DObjectsManager} from "../orrery2DObjectsManager.js";
 import {StellarBody} from "../stellarBody.js";
 import {Orrery2DActions} from "../orrery2DActions.js";
-import {Vec2} from "../../../webgl_engine/utils/math/vectors.js";
 
 const FULLSCREEN_BUTTON = true;
 const SECONDS_IN_DAY = 24 * 60 * 60;
-const __tmpVec2 = new Vec2();
 const BODY_LIST = ['SOL', 'MERCURY', 'VENUS', 'TERRA', 'LUNA', 'MARS', 'JUPITER', 'SATURN', 'URANUS', 'NEPTUNE'];
 
 export class MainGameState extends AbstractState {
@@ -46,7 +44,6 @@ export class MainGameState extends AbstractState {
         this.setAnimateInLength(0.0);
         this.setAnimateOutLength(0.0);
 
-        // Bind the 'this' context for these functions (otherwise it's lost when used as callback)
         gameBindings.addCallbackToAction(Orrery2DActions.CURSOR_MOVE, this.cursorMoveCallback.bind(this));
         gameBindings.addCallbackToAction(Orrery2DActions.LEFT_CLICK, this.leftClickCallback.bind(this));
         gameBindings.addCallbackToAction(Orrery2DActions.RIGHT_CLICK, this.rightClickCallback.bind(this));
