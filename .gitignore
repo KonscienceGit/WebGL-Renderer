@@ -4,7 +4,7 @@ nbproject
 workspace.xml
 .~lock.*
 .buildpath
-#.idea
+.idea
 .project
 .settings
 composer.lock

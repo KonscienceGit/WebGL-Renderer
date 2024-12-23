@@ -93,6 +93,14 @@ export class Camera2D {
     }
 
     /**
+     * Returns the current camera view/proj matrix. Is updated before render, just before entities update.
+     * @returns {Matrix3}
+     */
+    getViewProjMatrix() {
+        return this._viewProjMat;
+    }
+
+    /**
      * @param {Vec2} [target] an optional target vector to hold the size, create a new one if absent.
      * @returns {Vec2} the screen world size, mainly used for 2D rendering and UI positions
      */

@@ -21,6 +21,7 @@ const DEFAULT_VERTICE_ATTRIBS_COUNT = 4; // X,Y,U,V
 const VERTEX_SHADER = ShadersUtil.SHADER_HEADER +
     'uniform mat3 modelWorld;' +
     'uniform mat3 viewProj;' +
+    'uniform mat3 mvp;' +
     'in vec2 vertCoords;' +
     'in vec2 textCoordinates;' +
     'out vec2 textCoord;' +
@@ -29,7 +30,8 @@ const VERTEX_SHADER = ShadersUtil.SHADER_HEADER +
     '    textCoord = textCoordinates;' +
     '    vec3 pos = vec3(vertCoords, 1.);' +
     // pos in device/clip space [-1, 1]
-    '    pos = pos * modelWorld * viewProj;' +
+    '    pos = pos * mvp;' +
+    // '    pos = pos * modelWorld * viewProj;' +
     '    gl_Position = vec4(pos.xy, 0., 1.);' +
     '}';
 
@@ -172,6 +174,7 @@ export class Sprite extends Entity {
 
         this._modelWorldMatUniform = gl.getUniformLocation(this._program, "modelWorld");
         this._viewProjMatUniform = gl.getUniformLocation(this._program, "viewProj");
+        this._MVPUniform = gl.getUniformLocation(this._program, "mvp");
 
         this._spriteDimensionsUniform = gl.getUniformLocation(this._program, "spriteDimensions");
         this._canvasPositionUniform = gl.getUniformLocation(this._program, "canvasPosition");
@@ -198,14 +201,14 @@ export class Sprite extends Entity {
         gl.vertexAttribPointer(this._textCoordAttrib, 2, gl.FLOAT, false, stride, textCoordOffset);
     }
 
-    draw(renderer) {
+    draw(renderer, viewProjMatrix) {
+        super.draw(renderer, viewProjMatrix);
         this.initGraphics(renderer);
         this.setupContext(renderer);
         const nbIndices = this.getIndices().length;
         const gl = renderer.getGLContext();
         gl.drawElements(gl.TRIANGLES, nbIndices, gl.UNSIGNED_BYTE, 0);
         this.restoreContext(gl);
-        super.draw(renderer);
     }
 
     /**
@@ -286,6 +289,7 @@ export class Sprite extends Entity {
         gl.bindTexture(gl.TEXTURE_2D_ARRAY, this._texture);
         this.setupUniforms(gl, this);
         const camera = renderer.getScene().getCamera();
+        // TODO remove? no longer used
         camera.setViewProjectionUniform(gl, this._viewProjMatUniform);
     }
 
@@ -337,6 +341,7 @@ export class Sprite extends Entity {
         gl.uniform1f(this._rotationUniform, sprite.rotation);
         gl.uniform1f(this._alphaOutlineUniform, sprite.alphaOutline);
         gl.uniformMatrix3fv(this._modelWorldMatUniform, false, sprite.modelWorldMat.m);
+        gl.uniformMatrix3fv(this._MVPUniform, false, sprite.mvpMat.m);
         const u2 = this._uniFp2;
         gl.uniform2fv(this._spriteDimensionsUniform, sprite.size.toArray(u2));
         gl.uniform2fv(this._scaleUniform, sprite.scale.toArray(u2));

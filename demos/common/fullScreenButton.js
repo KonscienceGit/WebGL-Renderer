@@ -21,8 +21,8 @@ export class FullScreenButton extends Sprite {
         this._init = true;
     }
 
-    draw(renderer) {
-        super.draw(renderer);
+    draw(renderer, viewProjMatrix) {
+        super.draw(renderer, viewProjMatrix);
         if (this._init && document.fullscreenEnabled) {
             this.updateFullScreenPos(renderer.getScene().getCamera());
             this.setVisible(true);

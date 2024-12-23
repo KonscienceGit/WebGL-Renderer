@@ -6,7 +6,7 @@
  */
 export class Matrix3 {
     constructor() {
-        this.m = new Float32Array(9);
+        this.m = new Float64Array(9);
         this.m[0] = 1; // Float array is initialized to 0
         this.m[4] = 1;
         this.m[8] = 1;
@@ -122,8 +122,8 @@ export class Matrix3 {
      * @param {number} y
      */
     makeScale(x, y) {
-       this.makeIdentity();
-       this.setScale(x, y);
+        this.makeIdentity();
+        this.setScale(x, y);
     }
 
     /**

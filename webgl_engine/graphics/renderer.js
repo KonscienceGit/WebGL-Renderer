@@ -128,10 +128,10 @@ export class Renderer {
         // 1. update entities status and matrices
         camera.setRatio(this._ratio); // need to update each time as we can have multiple cameras.
         root.update(deltaTime, UNIT_MATRIX);
-        camera.update(deltaTime);
+        camera.update(deltaTime); // When camera follow objects, we need to update the camera after the objects world matrices updates.
 
         // 2. render scenegraph
-        root.draw(this);
+        root.draw(this, camera.getViewProjMatrix());
         this._needRepaint = false;
     }
 

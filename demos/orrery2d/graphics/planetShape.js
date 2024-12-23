@@ -36,7 +36,9 @@ export class PlanetShape extends Sprite {
             name: name
         });
         this.setIndices(PLANET_INDICES);
-        this.generateVertices(radius);
+        this.generatePlanetVertices(1);
+        // this.generatePlanetVertices(radius);
+        this.scale.setValues(radius, radius);
     }
 
     // TODO make custom class and shader
@@ -45,7 +47,7 @@ export class PlanetShape extends Sprite {
      * Generate the planet vertex data.
      * @param {number} radius
      */
-    generateVertices(radius) {
+    generatePlanetVertices(radius) {
         const nbVerts = PRECISION + 1;
         const nbValues = nbVerts * 4; // X, Y, U, V (todo: remove UV)
         const verts = new Float32Array(nbValues);

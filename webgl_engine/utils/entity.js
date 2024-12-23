@@ -25,6 +25,7 @@ export class Entity {
         this.rotation = 0;
         this.position = new Vec2(0, 0);
         this.modelWorldMat = new Matrix3();
+        this.mvpMat = new Matrix3();
         this.localMat = new Matrix3();
 
         // Render properties
@@ -82,12 +83,15 @@ export class Entity {
     /**
      * Draw this entity and all its child entities if they are visible.
      * @param {Renderer} renderer
+     * @param {Matrix3} viewProjMatrix the camera view projection matrix.
      */
-    draw(renderer) {
+    draw(renderer, viewProjMatrix) {
+        this.mvpMat.copy(this.modelWorldMat);
+        this.mvpMat.preMultiply(viewProjMatrix);
         if (this.childrenNodes) {
             for (let i = 0; i < this.childrenNodes.length; i++) {
                 const node = this.childrenNodes[i];
-                if (node.isVisible()) node.draw(renderer);
+                if (node.isVisible()) node.draw(renderer, viewProjMatrix);
             }
         }
     }

@@ -4,11 +4,13 @@ import {Entity} from "../../utils/entity.js";
 const LINE_VERTEX_SHADER = ShadersUtil.SHADER_HEADER +
     'uniform mat3 modelWorld;' +
     'uniform mat3 viewProj;' +
+    'uniform mat3 mvp;' +
     'in vec2 vertCoords;' +
 
     'void main(void) {' +
     // pos in device/clip space [-1, 1]
-    '    vec3 pos = vec3(vertCoords, 1.) * modelWorld * viewProj;' +
+    '    vec3 pos = vec3(vertCoords, 1.) * mvp;' +
+    // '    vec3 pos = vec3(vertCoords, 1.) * modelWorld * viewProj;' +
     '    gl_Position = vec4(pos.xy, 0., 1.);' +
     '}';
 
@@ -61,6 +63,7 @@ export class Line extends Entity {
 
         this._modelWorldMatUniform = gl.getUniformLocation(this._program, "modelWorld");
         this._viewProjMatUniform = gl.getUniformLocation(this._program, "viewProj");
+        this._MVPUniform = gl.getUniformLocation(this._program, "mvp");
 
         // VAO setup
         this._vao = gl.createVertexArray();
@@ -76,7 +79,8 @@ export class Line extends Entity {
         gl.vertexAttribPointer(this._coordAttrib, 2, gl.FLOAT, false, stride, 0);
     }
 
-    draw(renderer) {
+    draw(renderer, viewProjMatrix) {
+        super.draw(renderer, viewProjMatrix);
         if (!this._initialized) {
             this._initialized = true;
             this.initGraphics(renderer);
@@ -85,7 +89,6 @@ export class Line extends Entity {
         this.setupContext(renderer);
         gl.drawArrays(gl.LINE_STRIP, 0, this._nbPts);
         this.restoreContext(gl);
-        super.draw(renderer);
     }
 
     /**
@@ -96,7 +99,7 @@ export class Line extends Entity {
         const gl = renderer.getGLContext();
         gl.bindVertexArray(this._vao);
         gl.useProgram(this._program);
-        this.setupUniforms(gl, this);
+        this.setupUniforms(gl);
         const camera = renderer.getScene().getCamera();
         camera.setViewProjectionUniform(gl, this._viewProjMatUniform);
     }
@@ -112,10 +115,10 @@ export class Line extends Entity {
     /**
      * @protected
      * @param {WebGL2RenderingContext} gl
-     * @param {Entity} entity
      */
-    setupUniforms(gl, entity) {
-        gl.uniformMatrix3fv(this._modelWorldMatUniform, false, entity.modelWorldMat.m);
-        gl.uniform4fv(this._colorUniform, entity.color.toArray(this._uniFp4));
+    setupUniforms(gl) {
+        gl.uniformMatrix3fv(this._modelWorldMatUniform, false, this.modelWorldMat.m);
+        gl.uniform4fv(this._colorUniform, this.color.toArray(this._uniFp4));
+        gl.uniformMatrix3fv(this._MVPUniform, false, this.mvpMat.m);
     }
 }
