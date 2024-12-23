@@ -199,7 +199,7 @@ export class Renderer {
 
     /**
      * Turn the browser right click contextual menu on or off. Default is false.
-     * Should be left to false to allow the engine Right click mouse events to work properly.
+     * Set false to allow the engine Right click mouse events to work properly.
      * @param {boolean} enabled
      */
     setBrowserRightClickEnabled(enabled) {

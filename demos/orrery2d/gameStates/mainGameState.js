@@ -68,7 +68,7 @@ export class MainGameState extends AbstractState {
 
     mainLoop(delta) {
         // this._time += delta / SECONDS_IN_DAY;
-        this._time += 1 * delta;
+        this._time += delta;
         const allNodes = this._gameScene.getRoot().getAllNodes();
         allNodes.forEach((node) => {
             if (node instanceof StellarBody) {
@@ -159,7 +159,8 @@ export class MainGameState extends AbstractState {
             console.log('Body name ' + name + ' not found');
             return;
         }
-        const verticalSize = foundNode.getBodyRadius() * 2.8;
+        const MOON_SIZE = 1737.1;
+        const verticalSize = foundNode.getBodyRadius() + MOON_SIZE * 2;
         camera.follow(foundNode.getBody());
         camera.setVerticalScreenWorldSize(verticalSize);
     }

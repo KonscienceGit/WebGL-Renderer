@@ -1,0 +1,73 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="AssignmentResultUsedJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="AssignmentToForLoopParameterJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="AssignmentToFunctionParameterJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ChainedEqualityJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ConditionalExpressionWithIdenticalBranchesJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ConfusingPlusesOrMinusesJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="DivideByZeroJS" enabled="true" level="ERROR" enabled_by_default="true" editorAttributes="ERRORS_ATTRIBUTES" />
+    <inspection_tool class="DuplicateConditionJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="100" name="JavaScript" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="ES6ConvertLetToConst" enabled="true" level="WARNING" enabled_by_default="true" editorAttributes="WARNING_ATTRIBUTES" />
+    <inspection_tool class="ES6ConvertVarToLetConst" enabled="true" level="WARNING" enabled_by_default="true" editorAttributes="WARNING_ATTRIBUTES" />
+    <inspection_tool class="FlowJSConfig" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="FlowJSFlagCommentPlacement" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="FunctionNamingConventionJS" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_regex" value="#?[a-z][A-Za-z]*" />
+      <option name="m_minLength" value="3" />
+      <option name="m_maxLength" value="32" />
+    </inspection_tool>
+    <inspection_tool class="FunctionWithInconsistentReturnsJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="IfStatementWithIdenticalBranchesJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="InconsistentLineSeparators" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="IncrementDecrementResultUsedJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JSCheckFunctionSignatures" enabled="true" level="ERROR" enabled_by_default="true" editorAttributes="ERRORS_ATTRIBUTES" />
+    <inspection_tool class="JSClassNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_regex" value="[A-Z][a-zA-Z0-9]*" />
+      <option name="m_minLength" value="3" />
+    </inspection_tool>
+    <inspection_tool class="JSNonStrictModeUsed" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JSUnresolvedReference" enabled="true" level="ERROR" enabled_by_default="true" editorAttributes="ERRORS_ATTRIBUTES" />
+    <inspection_tool class="JSUnusedGlobalSymbols" enabled="true" level="WEAK WARNING" enabled_by_default="false" editorAttributes="NOT_USED_ELEMENT_ATTRIBUTES">
+      <scope name="All Changed Files" level="WEAK WARNING" enabled="true">
+        <option name="myReportUnusedDefinitions" value="true" />
+        <option name="myReportUnusedProperties" value="true" />
+      </scope>
+      <scope name="Open Files" level="WEAK WARNING" enabled="false">
+        <option name="myReportUnusedDefinitions" value="true" />
+        <option name="myReportUnusedProperties" value="true" />
+      </scope>
+      <option name="myReportUnusedDefinitions" value="true" />
+      <option name="myReportUnusedProperties" value="true" />
+    </inspection_tool>
+    <inspection_tool class="JSUnusedLocalSymbols" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myIgnoreUnusedFunctionParameters" value="true" />
+      <option name="myIgnoreParametersBeforeUsed" value="false" />
+    </inspection_tool>
+    <inspection_tool class="JSXSyntaxUsed" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="NegatedConditionalExpressionJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="NestedAssignmentJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ObjectAllocationIgnoredJS" enabled="true" level="WEAK WARNING" enabled_by_default="true" editorAttributes="INFO_ATTRIBUTES" />
+    <inspection_tool class="ParameterNamingConventionJS" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_regex" value="[a-z][A-Za-z0-9]*" />
+      <option name="m_minLength" value="1" />
+      <option name="m_maxLength" value="32" />
+    </inspection_tool>
+    <inspection_tool class="ReplaceAssignmentWithOperatorAssignmentJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
+      <option name="processCode" value="true" />
+      <option name="processLiterals" value="true" />
+      <option name="processComments" value="true" />
+    </inspection_tool>
+    <inspection_tool class="TailRecursionJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="UnterminatedStatementJS" enabled="true" level="ERROR" enabled_by_default="true" editorAttributes="ERRORS_ATTRIBUTES">
+      <option name="ignoreSemicolonAtEndOfBlock" value="true" />
+    </inspection_tool>
+  </profile>
+</component>

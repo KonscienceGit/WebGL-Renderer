@@ -115,12 +115,16 @@ export class StellarBody extends Entity {
 
     makeEccentricLine() {
         const color = new Vec4(this._color[0], this._color[1], this._color[2], 1);
-        return new Line([0, 0], [-this._semiMajorAxis, this._semiMajorAxis], color);
+        const line = new Line([0, 0], [-1, 1], color);
+        line.scale.setValues(this._semiMajorAxis, this._semiMajorAxis);
+        return line;
     }
 
     makeOrbitHandLine() {
         const color = new Vec4(this._color[0], this._color[1], this._color[2], 1);
-        return new Line([0, this._semiMajorAxis], [0, 0], color);
+        const line = new Line([0, 1], [0, 0], color);
+        line.scale.setValues(this._semiMajorAxis, this._semiMajorAxis); // scale gets updated later to follow the ellipse varying radius.
+        return line;
     }
 
     /**
@@ -132,18 +136,21 @@ export class StellarBody extends Entity {
     makeOrbitEllipse(nbPts, color) {
         const x = [];
         const y = [];
+        const increment = 2 * Math.PI / nbPts;
         for (let i = 0; i <= nbPts; i++) {
-            const angle = i * 2 * Math.PI / nbPts;
-            x.push(this._semiMajorAxis * (Math.cos(angle) - this._eccentricity));
-            y.push(this._semiMajorAxis * Math.sqrt(1 - this._eccentricity * this._eccentricity) * Math.sin(angle));
+            const angle = i * increment;
+            x.push(Math.cos(angle) - this._eccentricity);
+            y.push(Math.sqrt(1 - this._eccentricity * this._eccentricity) * Math.sin(angle));
         }
-        return new Line(x, y, color);
+        const line = new Line(x, y, color);
+        line.scale.setValues(this._semiMajorAxis, this._semiMajorAxis);
+        return line;
     }
 
     /**
      * Set this body orbit time.
      * Mean Anomaly: the body orbit position in radian, from 0 to 2 * PI.
-     * It represent the body progression along its orbit, and is linear, no matter the eccentricity.
+     * It represents the body progression along its orbit, and is linear, no matter the eccentricity.
      *
      * Eccentric Anomaly: the angle of the body projected onto the auxillary circle.
      *
@@ -160,7 +167,7 @@ export class StellarBody extends Entity {
         this.keplerOrbitPositionEA(eccentricAnomaly, this._orbitalPositionNode);
         if (this._orbitHandLine != null) {
             this._orbitHandLine.rotation = this.getTrueAnomalyA(eccentricAnomaly);
-            this._orbitHandLine.scale.x = 1 - Math.cos(eccentricAnomaly) * this._eccentricity;
+            this._orbitHandLine.scale.x = this._semiMajorAxis * (1 - Math.cos(eccentricAnomaly) * this._eccentricity);
         }
         // this.keplerOrbitPositionTA(trueAnomaly, this._testBLUE);
     }

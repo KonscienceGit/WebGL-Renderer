@@ -133,7 +133,7 @@ export class Sprite extends Entity {
         UNIT_HORIZONTAL: 2,
         /**
          * The Sprite size will remain at the size defined by the user before loading the image.
-         * By default (if not changed) this will be x:1, y:1.
+         * By default, (if not changed) this will be x:1, y:1.
          */
         OFF: 3
     };
@@ -325,7 +325,7 @@ export class Sprite extends Entity {
     }
 
     /**
-     * Setup the uniforms for the given Sprite. Usually a sprite will setup its own uniforms,
+     * Set up the uniforms for the given Sprite. Usually a sprite will set up its own uniforms,
      * but for multi-sprites which render a lot of similar sprites (sharing the same shader and texture)
      * this can be used to set the uniforms of other entity on this entity render.
      * @protected

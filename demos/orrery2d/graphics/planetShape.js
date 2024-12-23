@@ -56,7 +56,7 @@ export class PlanetShape extends Sprite {
         verts[1] = 0;
         verts[2] = u;
         verts[3] = v;
-        const piIncr = (2 * Math.PI) / PRECISION;
+        const piIncr = 2 * Math.PI / PRECISION;
         for (let i = 0; i < PRECISION; i++) {
             const angle = i * piIncr;
             const x = Math.cos(angle) * radius;
