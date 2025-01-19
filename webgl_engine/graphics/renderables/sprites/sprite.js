@@ -19,8 +19,6 @@ const DEFAULT_INDICES = new Uint8Array([
 const DEFAULT_VERTICE_ATTRIBS_COUNT = 4; // X,Y,U,V
 
 const VERTEX_SHADER = ShadersUtil.SHADER_HEADER +
-    'uniform mat3 modelWorld;' +
-    'uniform mat3 viewProj;' +
     'uniform mat3 mvp;' +
     'in vec2 vertCoords;' +
     'in vec2 textCoordinates;' +
@@ -28,10 +26,8 @@ const VERTEX_SHADER = ShadersUtil.SHADER_HEADER +
 
     'void main(void) {' +
     '    textCoord = textCoordinates;' +
-    '    vec3 pos = vec3(vertCoords, 1.);' +
     // pos in device/clip space [-1, 1]
-    '    pos = pos * mvp;' +
-    // '    pos = pos * modelWorld * viewProj;' +
+    '    vec3 pos = vec3(vertCoords, 1.) * mvp;' +
     '    gl_Position = vec4(pos.xy, 0., 1.);' +
     '}';
 
@@ -287,10 +283,7 @@ export class Sprite extends Entity {
         }
         gl.useProgram(this._program);
         gl.bindTexture(gl.TEXTURE_2D_ARRAY, this._texture);
-        this.setupUniforms(gl, this);
-        const camera = renderer.getScene().getCamera();
-        // TODO remove? no longer used
-        camera.setViewProjectionUniform(gl, this._viewProjMatUniform);
+        this.setupUniforms(gl);
     }
 
     /**
@@ -334,19 +327,17 @@ export class Sprite extends Entity {
      * this can be used to set the uniforms of other entity on this entity render.
      * @protected
      * @param {WebGL2RenderingContext} gl
-     * @param {Sprite} sprite
      */
-    setupUniforms(gl, sprite) {
-        gl.uniform1i(this._textureLayerUniform, sprite.textureLayer);
-        gl.uniform1f(this._rotationUniform, sprite.rotation);
-        gl.uniform1f(this._alphaOutlineUniform, sprite.alphaOutline);
-        gl.uniformMatrix3fv(this._modelWorldMatUniform, false, sprite.modelWorldMat.m);
-        gl.uniformMatrix3fv(this._MVPUniform, false, sprite.mvpMat.m);
+    setupUniforms(gl) {
+        gl.uniform1i(this._textureLayerUniform, this.textureLayer);
+        gl.uniform1f(this._rotationUniform, this.rotation);
+        gl.uniform1f(this._alphaOutlineUniform, this.alphaOutline);
+        gl.uniformMatrix3fv(this._MVPUniform, false, this.mvpMat.getFP32());
         const u2 = this._uniFp2;
-        gl.uniform2fv(this._spriteDimensionsUniform, sprite.size.toArray(u2));
-        gl.uniform2fv(this._scaleUniform, sprite.scale.toArray(u2));
-        gl.uniform2fv(this._positionUniform, sprite.position.toArray(u2));
-        gl.uniform4fv(this._colorUniform, sprite.color.toArray(this._uniFp4));
+        gl.uniform2fv(this._spriteDimensionsUniform, this.size.toArray(u2));
+        gl.uniform2fv(this._scaleUniform, this.scale.toArray(u2));
+        gl.uniform2fv(this._positionUniform, this.position.toArray(u2));
+        gl.uniform4fv(this._colorUniform, this.color.toArray(this._uniFp4));
     }
 
     /**

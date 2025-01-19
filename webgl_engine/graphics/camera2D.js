@@ -85,11 +85,12 @@ export class Camera2D {
     }
 
     /**
+     * TODO only use if necessary, now MVP is used in shaders instead of separate ModelWorld + ViewProj
      * @param {WebGL2RenderingContext} gl
      * @param {WebGLUniformLocation} viewProjMatUniform
      */
     setViewProjectionUniform(gl, viewProjMatUniform) {
-        gl.uniformMatrix3fv(viewProjMatUniform, false, this._viewProjMat.m);
+        gl.uniformMatrix3fv(viewProjMatUniform, false, this._viewProjMat.getFP32());
     }
 
     /**

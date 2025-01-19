@@ -12,6 +12,20 @@ export class Matrix3 {
         this.m[8] = 1;
     }
 
+    /**
+     * Returns the Float32Array version of this matrix. For uniforms mainly.
+     * @returns {Float32Array}
+     */
+    getFP32() {
+        if (this._m32 == null) {
+            this._m32 = new Float32Array(9);
+        }
+        const a = this.m;
+        const b = this._m32;
+        for (let i = 0; i < 9; i++) b[i] = a[i];
+        return this._m32;
+    }
+
     makeIdentity() {
         const m = this.m;
         m[0] = 1;
@@ -180,32 +194,23 @@ export class Matrix3 {
      * Multiply matrices such that
      * A.B = C
      * Result is stored in C
-     * @param {Matrix3} A
-     * @param {Matrix3} B
-     * @param {Matrix3} C
+     * @param {Matrix3} ma
+     * @param {Matrix3} mb
+     * @param {Matrix3} mc
      */
-    multMat(A, B, C) {
-        const a = A.m;
-        const b = B.m;
-        const c = C.m;
-        const v11 = a[0] * b[0] + a[1] * b[3] + a[2] * b[6];
-        const v12 = a[0] * b[1] + a[1] * b[4] + a[2] * b[7];
-        const v13 = a[0] * b[2] + a[1] * b[5] + a[2] * b[8];
-        const v21 = a[3] * b[0] + a[4] * b[3] + a[5] * b[6];
-        const v22 = a[3] * b[1] + a[4] * b[4] + a[5] * b[7];
-        const v23 = a[3] * b[2] + a[4] * b[5] + a[5] * b[8];
-        const v31 = a[6] * b[0] + a[7] * b[3] + a[8] * b[6];
-        const v32 = a[6] * b[1] + a[7] * b[4] + a[8] * b[7];
-        const v33 = a[6] * b[2] + a[7] * b[5] + a[8] * b[8];
-        c[0] = v11;
-        c[1] = v12;
-        c[2] = v13;
-        c[3] = v21;
-        c[4] = v22;
-        c[5] = v23;
-        c[6] = v31;
-        c[7] = v32;
-        c[8] = v33;
+    multMat(ma, mb, mc) {
+        const a = ma.m;
+        const b = mb.m;
+        const c = mc.m;
+        c[0] = a[0] * b[0] + a[1] * b[3] + a[2] * b[6];
+        c[1] = a[0] * b[1] + a[1] * b[4] + a[2] * b[7];
+        c[2] = a[0] * b[2] + a[1] * b[5] + a[2] * b[8];
+        c[3] = a[3] * b[0] + a[4] * b[3] + a[5] * b[6];
+        c[4] = a[3] * b[1] + a[4] * b[4] + a[5] * b[7];
+        c[5] = a[3] * b[2] + a[4] * b[5] + a[5] * b[8];
+        c[6] = a[6] * b[0] + a[7] * b[3] + a[8] * b[6];
+        c[7] = a[6] * b[1] + a[7] * b[4] + a[8] * b[7];
+        c[8] = a[6] * b[2] + a[7] * b[5] + a[8] * b[8];
     }
 
     /**
